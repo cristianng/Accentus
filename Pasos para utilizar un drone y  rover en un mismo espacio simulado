@@ -1,0 +1,12 @@
+
+
+Ejecución de roscore
+roslaunch multi_robot main.launch #para que el drone y rover convivan en el mismo espacio.
+rosrun ardrone_autonomy ardrone_driver #agregamos el driver para el control del drone.
+rostopic pub ardrone/takeoff std_msgs/Empty # le indicamos al drone que se eleve.
+detenemos este proceso usando el comando ctrl C.
+rosrun drone_controller test5_ultimate.py #le damos las instrucciones a realizar.
+
+
+
+

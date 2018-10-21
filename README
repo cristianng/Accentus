@@ -1,0 +1,61 @@
+Challenge: Mission to the Moon 
+
+This project try to create an interconection between a drone and a rover. The drone give the map to the rover, to indicate where the rover needs to go. 
+
+Open the drone simulation 
+1. roscore
+2. roslaunch cvg_sim_gazebo ardrone_testworld.launch
+3. rosrun ardrone_autonomy ardrone_driver\
+
+Basic Movements for a Drone
+rostopic pub ardrone/takeoff std_msgs/Empty # Elevate
+rostopic pub ardrone/land std_msgs/Empty # Land
+
+Movements with Coordenates for a Drone
+rostopic pub -1 /cmd_vel geometry_msgs/Twist -- '[0.1,0.0,0.0]' '[0,0,0]' # Go 
+rostopic pub -1 /cmd_vel geometry_msgs/Twist -- '[0.0,0.0,0.0]' '[0,0,0]' # Stop
+rostopic pub -1 /cmd_vel geometry_msgs/Twist -- '[0.0,0.1,0.0]' '[0,0,0]' # Go right
+rostopic pub -1 /cmd_vel geometry_msgs/Twist -- '[0.0,0.0,0.1]' '[0,0,0]' # Up
+
+
+Starting the simulation and the driver
+rostopic pub ardrone/takeoff std_msgs/Empty
+rosrun drone_controller takeoff.py
+
+
+Open the rosaria simulation
+When you had installed the two options: open the simulation or connect the rover to a serial port.
+
+If you connect the rover to the serial port, you should bring a read permission to the usb port that generally is ttyUSB0.
+
+**You can verify the usb port when you connect it to the computer and run the command dmesg**
+
+Example:
+sudo chmod 777 /dev/ttyUSB0
+
+
+To see the sonar information using rviz
+1. rosrun rviz rviz
+2. Run in other terminal:
+rosrun tf static_transform_publisher 0.0 0.0 0.0 0.0 0.0 0.0 map sonar 100
+3. Run in other terminal:
+rosrun tf static_transform_publisher 0.0 0.0 0.0 0.0 0.0 0.0 map odom 100
+
+To run Rosaria
+1. roscore
+**If you only have to open once*
+2. In other terminal:
+rosrun rosaria RosAria
+
+
+Import drone to the moon:
+Do the normal steps to open the simulation in the moon with the rover:
+1.roscore
+2. roslaunch amr_robots_gazebo example-pioneer3at-moonworld.launch
+
+When Gazebo is open, go to edit>model editor> add> 
+Find the drone file that while be in: 
+	catkin>src> ardrone_simulator_gazebo7_cvg_sim_gazebo> meshes>quadrotor
+Choose the model quadrotor_4.stl because the last version of the drone.
+
+Close the model editor that is in the file, press save and close the simulation to save the changes in the quadrotor. 

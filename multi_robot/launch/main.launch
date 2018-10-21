@@ -1,0 +1,15 @@
+<launch>
+  <param name="/use_sim_time" value="true" />
+
+  <!-- start world -->
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo" 
+   args="$(find amr_robots_gazebo)/moon.world" respawn="false" output="screen" />
+
+  <!-- start gui , aqui cambie la vaina de gzcliente ya que antes era gui-->
+  <node name="gazebo_gui" pkg="gazebo" type="gzclient" respawn="false" output="screen"/>  
+
+  <!-- include our robots -->
+  <include file="$(find multi_robot)/launch/robots_4.launch"/>
+<!-- esto es el drone supuetamente, eso espero :C -->
+  
+</launch>
